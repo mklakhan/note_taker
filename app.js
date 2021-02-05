@@ -30,10 +30,25 @@ app.post('/api/notes', function (req, res) {
       console.log('Saved!');
     });
   });
-    res.send('in the post endpoint')
+    res.json(req.body)
 })
 
 app.delete('/api/notes/:id', function (req, res) {
+  console.log(req.params)
+  fs.readFile(path.join(__dirname, './db/db.json'), function(err, data) {
+    let notes = JSON.parse(data)
+    // console.log('notes:', notes)
+    let newNotes = notes.filter(item => {
+      if (item.id === req.params.id){
+        return false
+      } else {return true}
+    });
+    fs.writeFile(path.join(__dirname, './db/db.json'), JSON.stringify(newNotes), function (err) {
+      if (err) throw err;
+      console.log('Saved!');
+    });
+  });
+
     res.send('in the delete endpoint')
 })
 
