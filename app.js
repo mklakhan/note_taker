@@ -56,8 +56,9 @@ app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, './public/index.html'))
   })
   
+let PORT = process.env.PORT || 3000;
 
-  app.listen(3000, function () {
+  app.listen(PORT, function () {
     console.log('app is running in port 3000')
   })
 
